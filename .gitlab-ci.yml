@@ -1,0 +1,33 @@
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  PROJECT_NAME: "example_project"
+  BUILD_DIR: "build"
+
+build-job:
+  stage: build
+  script:
+    - echo "Building the project..."
+    - mkdir -p $BUILD_DIR
+    - echo "Build artifacts" > $BUILD_DIR/artifact.txt
+  artifacts:
+    paths:
+      - $BUILD_DIR
+    expire_in: 1 hour
+
+test-job:
+  stage: test
+  script:
+    - echo "Running tests..."
+    - echo "All tests passed!"
+
+deploy-job:
+  stage: deploy
+  script:
+    - echo "Deploying the project..."
+    - echo "Project $PROJECT_NAME has been deployed successfully!"
+  only:
+    - main
